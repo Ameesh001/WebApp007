@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="DBModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+          <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="DBModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemMasters">
+      <EntityTypeMapping TypeName="DBModel.ItemMaster">
+        <MappingFragment StoreEntitySet="ItemMaster">
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="StyleCode" ColumnName="StyleCode" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Colorway" ColumnName="Colorway" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="DBModel.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleDetails">
+      <EntityTypeMapping TypeName="DBModel.ModuleDetail">
+        <MappingFragment StoreEntitySet="ModuleDetail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+          <ScalarProperty Name="default_url" ColumnName="default_url" />
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleRolePermissions">
+      <EntityTypeMapping TypeName="DBModel.ModuleRolePermission">
+        <MappingFragment StoreEntitySet="ModuleRolePermission">
+          <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="DBModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+          <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
+          <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
+          <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
+          <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
+          <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
+          <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PO_Detail">
+      <EntityTypeMapping TypeName="DBModel.PO_Detail">
+        <MappingFragment StoreEntitySet="PO_Detail">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+          <ScalarProperty Name="Item_Code" ColumnName="Item_Code" />
+          <ScalarProperty Name="XS_Qty" ColumnName="XS_Qty" />
+          <ScalarProperty Name="S_Qty" ColumnName="S_Qty" />
+          <ScalarProperty Name="M_Qty" ColumnName="M_Qty" />
+          <ScalarProperty Name="L_Qty" ColumnName="L_Qty" />
+          <ScalarProperty Name="XL_Qty" ColumnName="XL_Qty" />
+          <ScalarProperty Name="C2XL_Qty" ColumnName="2XL_Qty" />
+          <ScalarProperty Name="C3XL_Qty" ColumnName="3XL_Qty" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PO_WIP">
+      <EntityTypeMapping TypeName="DBModel.PO_WIP">
+        <MappingFragment StoreEntitySet="PO_WIP">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+          <ScalarProperty Name="PO_DetailID" ColumnName="PO_DetailID" />
+          <ScalarProperty Name="CTL" ColumnName="CTL" />
+          <ScalarProperty Name="PO_Print" ColumnName="PO_Print" />
+          <ScalarProperty Name="Yarn" ColumnName="Yarn" />
+          <ScalarProperty Name="Kni" ColumnName="Kni" />
+          <ScalarProperty Name="Dying" ColumnName="Dying" />
+          <ScalarProperty Name="Cutting" ColumnName="Cutting" />
+          <ScalarProperty Name="Swing" ColumnName="Swing" />
+          <ScalarProperty Name="Checking" ColumnName="Checking" />
+          <ScalarProperty Name="Pressing" ColumnName="Pressing" />
+          <ScalarProperty Name="Packing" ColumnName="Packing" />
+          <ScalarProperty Name="Units" ColumnName="Units" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrders">
+      <EntityTypeMapping TypeName="DBModel.PurchaseOrder">
+        <MappingFragment StoreEntitySet="PurchaseOrder">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PO_Number" ColumnName="PO_Number" />
+          <ScalarProperty Name="PO_Date" ColumnName="PO_Date" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Total_Qty" ColumnName="Total_Qty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="DBModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shipment_Detail">
+      <EntityTypeMapping TypeName="DBModel.Shipment_Detail">
+        <MappingFragment StoreEntitySet="Shipment_Detail">
+          <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
+          <ScalarProperty Name="ContainerNumber" ColumnName="ContainerNumber" />
+          <ScalarProperty Name="PO_DetailID" ColumnName="PO_DetailID" />
+          <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+          <ScalarProperty Name="XS_Qty" ColumnName="XS_Qty" />
+          <ScalarProperty Name="S_Qty" ColumnName="S_Qty" />
+          <ScalarProperty Name="M_Qty" ColumnName="M_Qty" />
+          <ScalarProperty Name="L_Qty" ColumnName="L_Qty" />
+          <ScalarProperty Name="XL_Qty" ColumnName="XL_Qty" />
+          <ScalarProperty Name="C2XL_Qty" ColumnName="2XL_Qty" />
+          <ScalarProperty Name="C3XL_Qty" ColumnName="3XL_Qty" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Composit" ColumnName="Composit" />
+          <ScalarProperty Name="Trim_Approved" ColumnName="Trim_Approved" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTypes">
+      <EntityTypeMapping TypeName="DBModel.UserType">
+        <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+          <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vuGetRolePermissions">
+      <EntityTypeMapping TypeName="DBModel.vuGetRolePermission">
+        <MappingFragment StoreEntitySet="vuGetRolePermission">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+          <ScalarProperty Name="default_url" ColumnName="default_url" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+          <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
+          <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
+          <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
+          <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
+          <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
+          <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
