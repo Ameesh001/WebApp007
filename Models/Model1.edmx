@@ -1,0 +1,1123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="int" />
+          <Property Name="City" Type="int" />
+          <Property Name="Contact_Person" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact_Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ItemMaster">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+          </Key>
+          <Property Name="ItemCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StyleCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Colorway" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ModuleDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleID" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Page_Name" Type="nvarchar(max)" />
+          <Property Name="default_url" Type="nvarchar(max)" />
+          <Property Name="IsParent" Type="bit" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="IsVisible" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ModuleRolePermission">
+          <Key>
+            <PropertyRef Name="ModulePermissionID" />
+          </Key>
+          <Property Name="ModulePermissionID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="ModuleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModulePermissionID" Type="int" />
+          <Property Name="ModuleDetailID" Type="int" />
+          <Property Name="Allow_Insert" Type="bit" />
+          <Property Name="Allow_Update" Type="bit" />
+          <Property Name="Allow_Delete" Type="bit" />
+          <Property Name="Allow_View" Type="bit" />
+          <Property Name="Allow_Approval" Type="bit" />
+        </EntityType>
+        <EntityType Name="PO_Detail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="PO_ID" Type="int" />
+          <Property Name="Item_Code" Type="int" />
+          <Property Name="XS_Qty" Type="int" />
+          <Property Name="S_Qty" Type="int" />
+          <Property Name="M_Qty" Type="int" />
+          <Property Name="L_Qty" Type="int" />
+          <Property Name="XL_Qty" Type="int" />
+          <Property Name="2XL_Qty" Type="int" />
+          <Property Name="3XL_Qty" Type="int" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PO_WIP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_ID" Type="int" />
+          <Property Name="PO_DetailID" Type="int" />
+          <Property Name="CTL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PO_Print" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yarn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kni" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dying" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cutting" Type="nvarchar" MaxLength="50" />
+          <Property Name="Swing" Type="nvarchar" MaxLength="50" />
+          <Property Name="Checking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pressing" Type="nvarchar" MaxLength="50" />
+          <Property Name="Packing" Type="nvarchar" MaxLength="50" />
+          <Property Name="Units" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PurchaseOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_Number" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PO_Date" Type="datetime" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="Total_Qty" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Shipment_Detail">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+          </Key>
+          <Property Name="ShipmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContainerNumber" Type="int" />
+          <Property Name="PO_DetailID" Type="int" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="XS_Qty" Type="int" />
+          <Property Name="S_Qty" Type="int" />
+          <Property Name="M_Qty" Type="int" />
+          <Property Name="L_Qty" Type="int" />
+          <Property Name="XL_Qty" Type="int" />
+          <Property Name="2XL_Qty" Type="int" />
+          <Property Name="3XL_Qty" Type="int" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="Composit" Type="int" />
+          <Property Name="Trim_Approved" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB.dbo.UserGroup' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="UserGroup">
+          <Property Name="UserGroupID" Type="int" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserTypeID" Type="int" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="PhoneNumber" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsVerified" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vuGetRolePermission">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Page_Name" Type="nvarchar(max)" />
+          <Property Name="default_url" Type="nvarchar(max)" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="PermissionID" Type="int" Nullable="false" />
+          <Property Name="ModulePermissionID" Type="int" />
+          <Property Name="ModuleDetailID" Type="int" />
+          <Property Name="Allow_Insert" Type="bit" />
+          <Property Name="Allow_Update" Type="bit" />
+          <Property Name="Allow_Delete" Type="bit" />
+          <Property Name="Allow_View" Type="bit" />
+          <Property Name="Allow_Approval" Type="bit" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_ModuleDetail_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="ModuleDetail">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleRolePermission_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="ModuleRolePermission">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleRolePermission_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="ModuleRolePermission">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_ModuleDetail">
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="ModuleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_ModuleRolePermission">
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleRolePermission">
+              <PropertyRef Name="ModulePermissionID" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="ModulePermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Detail_ItemMaster">
+          <End Role="ItemMaster" Type="Self.ItemMaster" Multiplicity="0..1" />
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemMaster">
+              <PropertyRef Name="ItemCode" />
+            </Principal>
+            <Dependent Role="PO_Detail">
+              <PropertyRef Name="Item_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Detail_PurchaseOrder">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PO_Detail">
+              <PropertyRef Name="PO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_WIP_PurchaseOrder">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+          <End Role="PO_WIP" Type="Self.PO_WIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PO_WIP">
+              <PropertyRef Name="PO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrder_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="PurchaseOrder">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_Detail_PO_Detail">
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="0..1" />
+          <End Role="Shipment_Detail" Type="Self.Shipment_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_Detail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipment_Detail">
+              <PropertyRef Name="PO_DetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemMaster" EntityType="Self.ItemMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleDetail" EntityType="Self.ModuleDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleRolePermission" EntityType="Self.ModuleRolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PO_Detail" EntityType="Self.PO_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PO_WIP" EntityType="Self.PO_WIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrder" EntityType="Self.PurchaseOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vuGetRolePermission" EntityType="Self.vuGetRolePermission" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vuGetRolePermission].[ModuleID] AS [ModuleID], 
+    [vuGetRolePermission].[IsActive] AS [IsActive], 
+    [vuGetRolePermission].[Page_Name] AS [Page_Name], 
+    [vuGetRolePermission].[default_url] AS [default_url], 
+    [vuGetRolePermission].[RoleID] AS [RoleID], 
+    [vuGetRolePermission].[RoleName] AS [RoleName], 
+    [vuGetRolePermission].[PermissionID] AS [PermissionID], 
+    [vuGetRolePermission].[ModulePermissionID] AS [ModulePermissionID], 
+    [vuGetRolePermission].[ModuleDetailID] AS [ModuleDetailID], 
+    [vuGetRolePermission].[Allow_Insert] AS [Allow_Insert], 
+    [vuGetRolePermission].[Allow_Update] AS [Allow_Update], 
+    [vuGetRolePermission].[Allow_Delete] AS [Allow_Delete], 
+    [vuGetRolePermission].[Allow_View] AS [Allow_View], 
+    [vuGetRolePermission].[Allow_Approval] AS [Allow_Approval], 
+    [vuGetRolePermission].[UserName] AS [UserName], 
+    [vuGetRolePermission].[Password] AS [Password]
+    FROM [dbo].[vuGetRolePermission] AS [vuGetRolePermission]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="ModuleDetail" EntitySet="ModuleDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleRolePermission_Roles" Association="Self.FK_ModuleRolePermission_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_ModuleDetail" Association="Self.FK_Permission_ModuleDetail">
+            <End Role="ModuleDetail" EntitySet="ModuleDetail" />
+            <End Role="Permission" EntitySet="Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_ModuleRolePermission" Association="Self.FK_Permission_ModuleRolePermission">
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermission" />
+            <End Role="Permission" EntitySet="Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Detail_ItemMaster" Association="Self.FK_PO_Detail_ItemMaster">
+            <End Role="ItemMaster" EntitySet="ItemMaster" />
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Detail_PurchaseOrder" Association="Self.FK_PO_Detail_PurchaseOrder">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_WIP_PurchaseOrder" Association="Self.FK_PO_WIP_PurchaseOrder">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+            <End Role="PO_WIP" EntitySet="PO_WIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrder_Client" Association="Self.FK_PurchaseOrder_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_Detail_PO_Detail" Association="Self.FK_Shipment_Detail_PO_Detail">
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+            <End Role="Shipment_Detail" EntitySet="Shipment_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserType" Association="Self.FK_Users_UserType">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Contact_Person" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PurchaseOrder_Client" FromRole="Client" ToRole="PurchaseOrder" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ItemMaster">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+          </Key>
+          <Property Name="ItemCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StyleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Colorway" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PO_Detail" Relationship="Self.FK_PO_Detail_ItemMaster" FromRole="ItemMaster" ToRole="PO_Detail" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ModuleDetails" Relationship="Self.FK_ModuleDetail_Module" FromRole="Module" ToRole="ModuleDetail" />
+          <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="Module" ToRole="ModuleRolePermission" />
+        </EntityType>
+        <EntityType Name="ModuleDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsParent" Type="Boolean" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="IsVisible" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleDetail_Module" FromRole="ModuleDetail" ToRole="Module" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleDetail" FromRole="ModuleDetail" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="ModuleRolePermission">
+          <Key>
+            <PropertyRef Name="ModulePermissionID" />
+          </Key>
+          <Property Name="ModulePermissionID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="ModuleID" Type="Int32" />
+          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleRolePermission" ToRole="Module" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="ModuleRolePermission" ToRole="Roles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleRolePermission" FromRole="ModuleRolePermission" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModulePermissionID" Type="Int32" />
+          <Property Name="ModuleDetailID" Type="Int32" />
+          <Property Name="Allow_Insert" Type="Boolean" />
+          <Property Name="Allow_Update" Type="Boolean" />
+          <Property Name="Allow_Delete" Type="Boolean" />
+          <Property Name="Allow_View" Type="Boolean" />
+          <Property Name="Allow_Approval" Type="Boolean" />
+          <NavigationProperty Name="ModuleDetail" Relationship="Self.FK_Permission_ModuleDetail" FromRole="Permission" ToRole="ModuleDetail" />
+          <NavigationProperty Name="ModuleRolePermission" Relationship="Self.FK_Permission_ModuleRolePermission" FromRole="Permission" ToRole="ModuleRolePermission" />
+        </EntityType>
+        <EntityType Name="PO_Detail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="PO_ID" Type="Int32" />
+          <Property Name="Item_Code" Type="Int32" />
+          <Property Name="XS_Qty" Type="Int32" />
+          <Property Name="S_Qty" Type="Int32" />
+          <Property Name="M_Qty" Type="Int32" />
+          <Property Name="L_Qty" Type="Int32" />
+          <Property Name="XL_Qty" Type="Int32" />
+          <Property Name="C2XL_Qty" Type="Int32" />
+          <Property Name="C3XL_Qty" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ItemMaster" Relationship="Self.FK_PO_Detail_ItemMaster" FromRole="PO_Detail" ToRole="ItemMaster" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="Self.FK_PO_Detail_PurchaseOrder" FromRole="PO_Detail" ToRole="PurchaseOrder" />
+          <NavigationProperty Name="Shipment_Detail" Relationship="Self.FK_Shipment_Detail_PO_Detail" FromRole="PO_Detail" ToRole="Shipment_Detail" />
+        </EntityType>
+        <EntityType Name="PO_WIP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_ID" Type="Int32" />
+          <Property Name="PO_DetailID" Type="Int32" />
+          <Property Name="CTL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PO_Print" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Yarn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kni" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dying" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cutting" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Swing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Checking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pressing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Packing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="Self.FK_PO_WIP_PurchaseOrder" FromRole="PO_WIP" ToRole="PurchaseOrder" />
+        </EntityType>
+        <EntityType Name="PurchaseOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_Number" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PO_Date" Type="DateTime" Precision="3" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="Total_Qty" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_PurchaseOrder_Client" FromRole="PurchaseOrder" ToRole="Client" />
+          <NavigationProperty Name="PO_Detail" Relationship="Self.FK_PO_Detail_PurchaseOrder" FromRole="PurchaseOrder" ToRole="PO_Detail" />
+          <NavigationProperty Name="PO_WIP" Relationship="Self.FK_PO_WIP_PurchaseOrder" FromRole="PurchaseOrder" ToRole="PO_WIP" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="Roles" ToRole="ModuleRolePermission" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Shipment_Detail">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+          </Key>
+          <Property Name="ShipmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContainerNumber" Type="Int32" />
+          <Property Name="PO_DetailID" Type="Int32" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="XS_Qty" Type="Int32" />
+          <Property Name="S_Qty" Type="Int32" />
+          <Property Name="M_Qty" Type="Int32" />
+          <Property Name="L_Qty" Type="Int32" />
+          <Property Name="XL_Qty" Type="Int32" />
+          <Property Name="C2XL_Qty" Type="Int32" />
+          <Property Name="C3XL_Qty" Type="Int32" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Composit" Type="Int32" />
+          <Property Name="Trim_Approved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PO_Detail" Relationship="Self.FK_Shipment_Detail_PO_Detail" FromRole="Shipment_Detail" ToRole="PO_Detail" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="UserTypeID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="PhoneNumber" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK_Users_UserType" FromRole="Users" ToRole="UserType" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserType" FromRole="UserType" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="vuGetRolePermission">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermissionID" Type="Int32" Nullable="false" />
+          <Property Name="ModulePermissionID" Type="Int32" />
+          <Property Name="ModuleDetailID" Type="Int32" />
+          <Property Name="Allow_Insert" Type="Boolean" />
+          <Property Name="Allow_Update" Type="Boolean" />
+          <Property Name="Allow_Delete" Type="Boolean" />
+          <Property Name="Allow_View" Type="Boolean" />
+          <Property Name="Allow_Approval" Type="Boolean" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_PurchaseOrder_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="PurchaseOrder">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Detail_ItemMaster">
+          <End Role="ItemMaster" Type="Self.ItemMaster" Multiplicity="0..1" />
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemMaster">
+              <PropertyRef Name="ItemCode" />
+            </Principal>
+            <Dependent Role="PO_Detail">
+              <PropertyRef Name="Item_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleDetail_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="ModuleDetail">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleRolePermission_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="ModuleRolePermission">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_ModuleDetail">
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="ModuleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleRolePermission_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="ModuleRolePermission">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_ModuleRolePermission">
+          <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleRolePermission">
+              <PropertyRef Name="ModulePermissionID" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="ModulePermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Detail_PurchaseOrder">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PO_Detail">
+              <PropertyRef Name="PO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_Detail_PO_Detail">
+          <End Role="PO_Detail" Type="Self.PO_Detail" Multiplicity="0..1" />
+          <End Role="Shipment_Detail" Type="Self.Shipment_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_Detail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipment_Detail">
+              <PropertyRef Name="PO_DetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_WIP_PurchaseOrder">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+          <End Role="PO_WIP" Type="Self.PO_WIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PO_WIP">
+              <PropertyRef Name="PO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="ItemMasters" EntityType="Self.ItemMaster" />
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetail" />
+          <EntitySet Name="ModuleRolePermissions" EntityType="Self.ModuleRolePermission" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="PO_Detail" EntityType="Self.PO_Detail" />
+          <EntitySet Name="PO_WIP" EntityType="Self.PO_WIP" />
+          <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <EntitySet Name="vuGetRolePermissions" EntityType="Self.vuGetRolePermission" />
+          <AssociationSet Name="FK_PurchaseOrder_Client" Association="Self.FK_PurchaseOrder_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Detail_ItemMaster" Association="Self.FK_PO_Detail_ItemMaster">
+            <End Role="ItemMaster" EntitySet="ItemMasters" />
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleDetail" EntitySet="ModuleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_ModuleDetail" Association="Self.FK_Permission_ModuleDetail">
+            <End Role="ModuleDetail" EntitySet="ModuleDetails" />
+            <End Role="Permission" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleRolePermission_Roles" Association="Self.FK_ModuleRolePermission_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_ModuleRolePermission" Association="Self.FK_Permission_ModuleRolePermission">
+            <End Role="ModuleRolePermission" EntitySet="ModuleRolePermissions" />
+            <End Role="Permission" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Detail_PurchaseOrder" Association="Self.FK_PO_Detail_PurchaseOrder">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_Detail_PO_Detail" Association="Self.FK_Shipment_Detail_PO_Detail">
+            <End Role="PO_Detail" EntitySet="PO_Detail" />
+            <End Role="Shipment_Detail" EntitySet="Shipment_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_WIP_PurchaseOrder" Association="Self.FK_PO_WIP_PurchaseOrder">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+            <End Role="PO_WIP" EntitySet="PO_WIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserType" Association="Self.FK_Users_UserType">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+                <ScalarProperty Name="Contact_Email" ColumnName="Contact_Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="DBModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemMasters">
+            <EntityTypeMapping TypeName="DBModel.ItemMaster">
+              <MappingFragment StoreEntitySet="ItemMaster">
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="StyleCode" ColumnName="StyleCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Colorway" ColumnName="Colorway" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="DBModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleDetails">
+            <EntityTypeMapping TypeName="DBModel.ModuleDetail">
+              <MappingFragment StoreEntitySet="ModuleDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+                <ScalarProperty Name="default_url" ColumnName="default_url" />
+                <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleRolePermissions">
+            <EntityTypeMapping TypeName="DBModel.ModuleRolePermission">
+              <MappingFragment StoreEntitySet="ModuleRolePermission">
+                <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="DBModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+                <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
+                <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
+                <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
+                <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
+                <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
+                <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_Detail">
+            <EntityTypeMapping TypeName="DBModel.PO_Detail">
+              <MappingFragment StoreEntitySet="PO_Detail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+                <ScalarProperty Name="Item_Code" ColumnName="Item_Code" />
+                <ScalarProperty Name="XS_Qty" ColumnName="XS_Qty" />
+                <ScalarProperty Name="S_Qty" ColumnName="S_Qty" />
+                <ScalarProperty Name="M_Qty" ColumnName="M_Qty" />
+                <ScalarProperty Name="L_Qty" ColumnName="L_Qty" />
+                <ScalarProperty Name="XL_Qty" ColumnName="XL_Qty" />
+                <ScalarProperty Name="C2XL_Qty" ColumnName="2XL_Qty" />
+                <ScalarProperty Name="C3XL_Qty" ColumnName="3XL_Qty" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_WIP">
+            <EntityTypeMapping TypeName="DBModel.PO_WIP">
+              <MappingFragment StoreEntitySet="PO_WIP">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+                <ScalarProperty Name="PO_DetailID" ColumnName="PO_DetailID" />
+                <ScalarProperty Name="CTL" ColumnName="CTL" />
+                <ScalarProperty Name="PO_Print" ColumnName="PO_Print" />
+                <ScalarProperty Name="Yarn" ColumnName="Yarn" />
+                <ScalarProperty Name="Kni" ColumnName="Kni" />
+                <ScalarProperty Name="Dying" ColumnName="Dying" />
+                <ScalarProperty Name="Cutting" ColumnName="Cutting" />
+                <ScalarProperty Name="Swing" ColumnName="Swing" />
+                <ScalarProperty Name="Checking" ColumnName="Checking" />
+                <ScalarProperty Name="Pressing" ColumnName="Pressing" />
+                <ScalarProperty Name="Packing" ColumnName="Packing" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrders">
+            <EntityTypeMapping TypeName="DBModel.PurchaseOrder">
+              <MappingFragment StoreEntitySet="PurchaseOrder">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PO_Number" ColumnName="PO_Number" />
+                <ScalarProperty Name="PO_Date" ColumnName="PO_Date" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Total_Qty" ColumnName="Total_Qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipment_Detail">
+            <EntityTypeMapping TypeName="DBModel.Shipment_Detail">
+              <MappingFragment StoreEntitySet="Shipment_Detail">
+                <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
+                <ScalarProperty Name="ContainerNumber" ColumnName="ContainerNumber" />
+                <ScalarProperty Name="PO_DetailID" ColumnName="PO_DetailID" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="XS_Qty" ColumnName="XS_Qty" />
+                <ScalarProperty Name="S_Qty" ColumnName="S_Qty" />
+                <ScalarProperty Name="M_Qty" ColumnName="M_Qty" />
+                <ScalarProperty Name="L_Qty" ColumnName="L_Qty" />
+                <ScalarProperty Name="XL_Qty" ColumnName="XL_Qty" />
+                <ScalarProperty Name="C2XL_Qty" ColumnName="2XL_Qty" />
+                <ScalarProperty Name="C3XL_Qty" ColumnName="3XL_Qty" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Composit" ColumnName="Composit" />
+                <ScalarProperty Name="Trim_Approved" ColumnName="Trim_Approved" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="DBModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vuGetRolePermissions">
+            <EntityTypeMapping TypeName="DBModel.vuGetRolePermission">
+              <MappingFragment StoreEntitySet="vuGetRolePermission">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+                <ScalarProperty Name="default_url" ColumnName="default_url" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+                <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
+                <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
+                <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
+                <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
+                <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
+                <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
