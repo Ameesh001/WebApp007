@@ -1,0 +1,112 @@
+﻿@model IEnumerable<WebApplication007.Models.Role>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <h1 class="mt-4">Roles Manager</h1>
+        </div>
+        <div class="col-xl-6">
+            <h1 class="text-right">
+                @*<a href="~/tblreservations/create" class="mt-4 btn btn-info" role="button"><i class="nav-icon fas fa-plus"></i> Add New</a>*@
+            </h1>
+        </div>
+    </div>
+
+    <form class="form-horizontal ng-pristine ng-valid ng-scope" action="~/Account/create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="RoleName" placeholder="Enter New Role Name">
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <button type="submit" onclick="Myfunction()" class="btn btn-warning">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped " id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Role Name</th>
+                            <th>Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RoleName)
+                                </td>
+                                <td>
+                                    <div onclick="myFunction(@item.RoleID)">
+                                    <input type="checkbox" value="@item.RoleID" class="CheckChange" data-on="Active" data-off="InActive" data-toggle="toggle" data-onstyle="info" data-size="sm" @(item.IsActive == true ? "checked" : "") />
+                                    </div>
+                                </td>
+
+                                <td>
+                                 
+                                    <a href="~/Account/Edit/@item.RoleID" title="Edit"><i class="nav-icon fas fa-edit text-info"></i></a>
+                                    <a href="~/Account/delete/@item.RoleID" title="Delete"><i class="nav-icon fas fa-trash text-info"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+
+        function myFunction(id) {
+
+            $.ajax({
+                type: "get",
+                url: "/Account/Status?id=" + id,
+                data: { id: "done" },
+                success: function (response) {
+                    //$("#price").val(response);
+                   
+                },
+
+                error: function (response) {
+                    debugger;
+                    alert('Error' + response);
+                }
+            })
+           
+        }
+          
+
+
+        
+
+
+
+
+    </script>
+}
+
