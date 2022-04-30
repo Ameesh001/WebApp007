@@ -10,25 +10,28 @@
 namespace WebApplication007.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class vuGetRolePermission
+    public partial class SP_RolePermission_Result
     {
-        public int ModuleID { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public string Page_Name { get; set; }
-        public string default_url { get; set; }
+        public int ModulePermissionID { get; set; }
         public Nullable<int> RoleID { get; set; }
-        public string RoleName { get; set; }
+        public Nullable<int> ModuleID { get; set; }
         public int PermissionID { get; set; }
-        public Nullable<int> ModulePermissionID { get; set; }
+        public Nullable<int> ModulePermissionID1 { get; set; }
         public Nullable<int> ModuleDetailID { get; set; }
         public Nullable<bool> Allow_Insert { get; set; }
         public Nullable<bool> Allow_Update { get; set; }
         public Nullable<bool> Allow_Delete { get; set; }
         public Nullable<bool> Allow_View { get; set; }
         public Nullable<bool> Allow_Approval { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public int ID { get; set; }
+        public string ModuleName { get; set; }
+        public string Title { get; set; }
+        public string Page_Name { get; set; }
+        public string default_url { get; set; }
+        public Nullable<bool> IsParent { get; set; }
+        public Nullable<int> ParentID { get; set; }
+        public Nullable<bool> IsVisible { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

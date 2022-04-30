@@ -8,10 +8,14 @@ namespace WebApplication007.Controllers
 {
     public class AccountController : Controller
     {
-        private DBEntities db = new DBEntities();
+        private readonly DBEntities3 db = new DBEntities3();
+
         // GET: Account
         public ActionResult Index()
         {
+            
+            //var result = db.SP_RolePermission("7", "3").ToList();
+
             return View(db.Roles.ToList());
 
         }
@@ -34,7 +38,7 @@ namespace WebApplication007.Controllers
 
         }
 
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         {
             Role tblRoles = db.Roles.Find(id);
             db.Roles.Remove(tblRoles);
@@ -63,8 +67,8 @@ namespace WebApplication007.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "RoleID,RoleName")] Role roldedata)
-        {
+        public ActionResult Edit([Bind(Include = "RoleID,RoleName,IsActive")] Role roldedata)
+         {
             if (ModelState.IsValid)
             {
                 db.Entry(roldedata).State = EntityState.Modified;

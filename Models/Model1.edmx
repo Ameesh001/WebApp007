@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -19,14 +19,6 @@
           <Property Name="Contact_Person" Type="nvarchar" MaxLength="50" />
           <Property Name="Contact_Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="DepartmentID" />
-          </Key>
-          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="bit" />
-        </EntityType>
         <EntityType Name="ItemMaster">
           <Key>
             <PropertyRef Name="ItemCode" />
@@ -38,20 +30,12 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <EntityType Name="Module">
-          <Key>
-            <PropertyRef Name="ModuleID" />
-          </Key>
-          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ModuleName" Type="nvarchar(max)" />
-          <Property Name="IsActive" Type="bit" />
-        </EntityType>
         <EntityType Name="ModuleDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ModuleID" Type="int" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="50" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Page_Name" Type="nvarchar(max)" />
           <Property Name="default_url" Type="nvarchar(max)" />
@@ -64,7 +48,7 @@
           <Key>
             <PropertyRef Name="ModulePermissionID" />
           </Key>
-          <Property Name="ModulePermissionID" Type="int" Nullable="false" />
+          <Property Name="ModulePermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleID" Type="int" />
           <Property Name="ModuleID" Type="int" />
         </EntityType>
@@ -133,7 +117,7 @@
             <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Shipment_Detail">
@@ -156,13 +140,6 @@
           <Property Name="Trim_Approved" Type="nvarchar" MaxLength="50" />
           <Property Name="Comments" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB.dbo.UserGroup' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="UserGroup">
-          <Property Name="UserGroupID" Type="int" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="int" />
-        </EntityType>-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -191,46 +168,12 @@ warning 6013: The table/view 'DB.dbo.UserGroup' does not have a primary key defi
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vuGetRolePermission">
-          <Key>
-            <PropertyRef Name="ModuleID" />
-            <PropertyRef Name="PermissionID" />
-          </Key>
-          <Property Name="ModuleID" Type="int" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="Page_Name" Type="nvarchar(max)" />
-          <Property Name="default_url" Type="nvarchar(max)" />
-          <Property Name="RoleID" Type="int" />
-          <Property Name="RoleName" Type="nvarchar(max)" />
-          <Property Name="PermissionID" Type="int" Nullable="false" />
-          <Property Name="ModulePermissionID" Type="int" />
-          <Property Name="ModuleDetailID" Type="int" />
-          <Property Name="Allow_Insert" Type="bit" />
-          <Property Name="Allow_Update" Type="bit" />
-          <Property Name="Allow_Delete" Type="bit" />
-          <Property Name="Allow_View" Type="bit" />
-          <Property Name="Allow_Approval" Type="bit" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK_ModuleDetail_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
-          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="ModuleID" />
-            </Principal>
-            <Dependent Role="ModuleDetail">
-              <PropertyRef Name="ModuleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ModuleRolePermission_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
           <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="ModuleID" />
+            <Principal Role="ModuleDetail">
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ModuleRolePermission">
               <PropertyRef Name="ModuleID" />
@@ -357,11 +300,17 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_RolePermission" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="varchar" Mode="In" />
+          <Parameter Name="ModuleID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USERLOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER" Type="nvarchar" Mode="In" />
+          <Parameter Name="PASS" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DBModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemMaster" EntityType="Self.ItemMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDetail" EntityType="Self.ModuleDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleRolePermission" EntityType="Self.ModuleRolePermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
@@ -372,32 +321,8 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="vuGetRolePermission" EntityType="Self.vuGetRolePermission" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vuGetRolePermission].[ModuleID] AS [ModuleID], 
-    [vuGetRolePermission].[IsActive] AS [IsActive], 
-    [vuGetRolePermission].[Page_Name] AS [Page_Name], 
-    [vuGetRolePermission].[default_url] AS [default_url], 
-    [vuGetRolePermission].[RoleID] AS [RoleID], 
-    [vuGetRolePermission].[RoleName] AS [RoleName], 
-    [vuGetRolePermission].[PermissionID] AS [PermissionID], 
-    [vuGetRolePermission].[ModulePermissionID] AS [ModulePermissionID], 
-    [vuGetRolePermission].[ModuleDetailID] AS [ModuleDetailID], 
-    [vuGetRolePermission].[Allow_Insert] AS [Allow_Insert], 
-    [vuGetRolePermission].[Allow_Update] AS [Allow_Update], 
-    [vuGetRolePermission].[Allow_Delete] AS [Allow_Delete], 
-    [vuGetRolePermission].[Allow_View] AS [Allow_View], 
-    [vuGetRolePermission].[Allow_Approval] AS [Allow_Approval], 
-    [vuGetRolePermission].[UserName] AS [UserName], 
-    [vuGetRolePermission].[Password] AS [Password]
-    FROM [dbo].[vuGetRolePermission] AS [vuGetRolePermission]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
-            <End Role="Module" EntitySet="Module" />
-            <End Role="ModuleDetail" EntitySet="ModuleDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
-            <End Role="Module" EntitySet="Module" />
+            <End Role="ModuleDetail" EntitySet="ModuleDetail" />
             <End Role="ModuleRolePermission" EntitySet="ModuleRolePermission" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleRolePermission_Roles" Association="Self.FK_ModuleRolePermission_Roles">
@@ -441,8 +366,7 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -461,14 +385,6 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <Property Name="Contact_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PurchaseOrder_Client" FromRole="Client" ToRole="PurchaseOrder" />
         </EntityType>
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="DepartmentID" />
-          </Key>
-          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-        </EntityType>
         <EntityType Name="ItemMaster">
           <Key>
             <PropertyRef Name="ItemCode" />
@@ -481,22 +397,12 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="PO_Detail" Relationship="Self.FK_PO_Detail_ItemMaster" FromRole="ItemMaster" ToRole="PO_Detail" />
         </EntityType>
-        <EntityType Name="Module">
-          <Key>
-            <PropertyRef Name="ModuleID" />
-          </Key>
-          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="ModuleDetails" Relationship="Self.FK_ModuleDetail_Module" FromRole="Module" ToRole="ModuleDetail" />
-          <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="Module" ToRole="ModuleRolePermission" />
-        </EntityType>
         <EntityType Name="ModuleDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ModuleID" Type="Int32" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -504,7 +410,7 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <Property Name="ParentID" Type="Int32" />
           <Property Name="IsVisible" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleDetail_Module" FromRole="ModuleDetail" ToRole="Module" />
+          <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleDetail" ToRole="ModuleRolePermission" />
           <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleDetail" FromRole="ModuleDetail" ToRole="Permission" />
         </EntityType>
         <EntityType Name="ModuleRolePermission">
@@ -514,7 +420,7 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <Property Name="ModulePermissionID" Type="Int32" Nullable="false" />
           <Property Name="RoleID" Type="Int32" />
           <Property Name="ModuleID" Type="Int32" />
-          <NavigationProperty Name="Module" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleRolePermission" ToRole="Module" />
+          <NavigationProperty Name="ModuleDetail" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleRolePermission" ToRole="ModuleDetail" />
           <NavigationProperty Name="Role" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="ModuleRolePermission" ToRole="Roles" />
           <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleRolePermission" FromRole="ModuleRolePermission" ToRole="Permission" />
         </EntityType>
@@ -592,7 +498,7 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="Roles" ToRole="ModuleRolePermission" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
@@ -647,28 +553,6 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <Property Name="IsActive" Type="Int32" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserType" FromRole="UserType" ToRole="Users" />
         </EntityType>
-        <EntityType Name="vuGetRolePermission">
-          <Key>
-            <PropertyRef Name="ModuleID" />
-            <PropertyRef Name="PermissionID" />
-          </Key>
-          <Property Name="ModuleID" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RoleID" Type="Int32" />
-          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PermissionID" Type="Int32" Nullable="false" />
-          <Property Name="ModulePermissionID" Type="Int32" />
-          <Property Name="ModuleDetailID" Type="Int32" />
-          <Property Name="Allow_Insert" Type="Boolean" />
-          <Property Name="Allow_Update" Type="Boolean" />
-          <Property Name="Allow_Delete" Type="Boolean" />
-          <Property Name="Allow_View" Type="Boolean" />
-          <Property Name="Allow_Approval" Type="Boolean" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <Association Name="FK_PurchaseOrder_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
@@ -693,24 +577,12 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ModuleDetail_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
-          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="ModuleID" />
-            </Principal>
-            <Dependent Role="ModuleDetail">
-              <PropertyRef Name="ModuleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ModuleRolePermission_Module">
-          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
           <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="ModuleID" />
+            <Principal Role="ModuleDetail">
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="ModuleRolePermission">
               <PropertyRef Name="ModuleID" />
@@ -813,11 +685,9 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DBEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="ItemMasters" EntityType="Self.ItemMaster" />
-          <EntitySet Name="Modules" EntityType="Self.Module" />
           <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetail" />
           <EntitySet Name="ModuleRolePermissions" EntityType="Self.ModuleRolePermission" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
@@ -828,7 +698,6 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
           <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-          <EntitySet Name="vuGetRolePermissions" EntityType="Self.vuGetRolePermission" />
           <AssociationSet Name="FK_PurchaseOrder_Client" Association="Self.FK_PurchaseOrder_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
@@ -837,12 +706,8 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             <End Role="ItemMaster" EntitySet="ItemMasters" />
             <End Role="PO_Detail" EntitySet="PO_Detail" />
           </AssociationSet>
-          <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="ModuleDetail" EntitySet="ModuleDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
-            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleDetail" EntitySet="ModuleDetails" />
             <End Role="ModuleRolePermission" EntitySet="ModuleRolePermissions" />
           </AssociationSet>
           <AssociationSet Name="FK_Permission_ModuleDetail" Association="Self.FK_Permission_ModuleDetail">
@@ -877,13 +742,43 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <FunctionImport Name="USERLOGIN" ReturnType="Collection(Int32)">
+            <Parameter Name="USER" Mode="In" Type="String" />
+            <Parameter Name="PASS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RolePermission" ReturnType="Collection(DBModel.SP_RolePermission_Result)">
+            <Parameter Name="RoleID" Mode="In" Type="String" />
+            <Parameter Name="ModuleID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SP_RolePermission_Result">
+          <Property Type="Int32" Name="ModulePermissionID" Nullable="false" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="Int32" Name="ModuleID" Nullable="true" />
+          <Property Type="Int32" Name="PermissionID" Nullable="false" />
+          <Property Type="Int32" Name="ModulePermissionID1" Nullable="true" />
+          <Property Type="Int32" Name="ModuleDetailID" Nullable="true" />
+          <Property Type="Boolean" Name="Allow_Insert" Nullable="true" />
+          <Property Type="Boolean" Name="Allow_Update" Nullable="true" />
+          <Property Type="Boolean" Name="Allow_Delete" Nullable="true" />
+          <Property Type="Boolean" Name="Allow_View" Nullable="true" />
+          <Property Type="Boolean" Name="Allow_Approval" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Page_Name" Nullable="true" />
+          <Property Type="String" Name="default_url" Nullable="true" />
+          <Property Type="Boolean" Name="IsParent" Nullable="true" />
+          <Property Type="Int32" Name="ParentID" Nullable="true" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities3">
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="DBModel.Client">
               <MappingFragment StoreEntitySet="Client">
@@ -899,15 +794,6 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="DBModel.Department">
-              <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ItemMasters">
             <EntityTypeMapping TypeName="DBModel.ItemMaster">
               <MappingFragment StoreEntitySet="ItemMaster">
@@ -920,20 +806,11 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Modules">
-            <EntityTypeMapping TypeName="DBModel.Module">
-              <MappingFragment StoreEntitySet="Module">
-                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
-                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ModuleDetails">
             <EntityTypeMapping TypeName="DBModel.ModuleDetail">
               <MappingFragment StoreEntitySet="ModuleDetail">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
                 <ScalarProperty Name="default_url" ColumnName="default_url" />
@@ -1075,28 +952,33 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vuGetRolePermissions">
-            <EntityTypeMapping TypeName="DBModel.vuGetRolePermission">
-              <MappingFragment StoreEntitySet="vuGetRolePermission">
-                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
-                <ScalarProperty Name="default_url" ColumnName="default_url" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <FunctionImportMapping FunctionImportName="USERLOGIN" FunctionName="DBModel.Store.USERLOGIN" />
+          <FunctionImportMapping FunctionImportName="SP_RolePermission" FunctionName="DBModel.Store.SP_RolePermission">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBModel.SP_RolePermission_Result">
                 <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="ModulePermissionID1" ColumnName="ModulePermissionID1" />
                 <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
                 <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
                 <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
                 <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
                 <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
                 <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+                <ScalarProperty Name="default_url" ColumnName="default_url" />
+                <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

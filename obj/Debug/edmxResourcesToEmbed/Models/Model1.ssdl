@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Client">
     <Key>
       <PropertyRef Name="ClientID" />
@@ -14,14 +14,6 @@
     <Property Name="Contact_Person" Type="nvarchar" MaxLength="50" />
     <Property Name="Contact_Email" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="Department">
-    <Key>
-      <PropertyRef Name="DepartmentID" />
-    </Key>
-    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
-    <Property Name="IsActive" Type="bit" />
-  </EntityType>
   <EntityType Name="ItemMaster">
     <Key>
       <PropertyRef Name="ItemCode" />
@@ -33,20 +25,12 @@
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
-  <EntityType Name="Module">
-    <Key>
-      <PropertyRef Name="ModuleID" />
-    </Key>
-    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ModuleName" Type="nvarchar(max)" />
-    <Property Name="IsActive" Type="bit" />
-  </EntityType>
   <EntityType Name="ModuleDetail">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ModuleID" Type="int" />
+    <Property Name="ModuleName" Type="nvarchar" MaxLength="50" />
     <Property Name="Title" Type="nvarchar" MaxLength="50" />
     <Property Name="Page_Name" Type="nvarchar(max)" />
     <Property Name="default_url" Type="nvarchar(max)" />
@@ -59,7 +43,7 @@
     <Key>
       <PropertyRef Name="ModulePermissionID" />
     </Key>
-    <Property Name="ModulePermissionID" Type="int" Nullable="false" />
+    <Property Name="ModulePermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleID" Type="int" />
     <Property Name="ModuleID" Type="int" />
   </EntityType>
@@ -128,7 +112,7 @@
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleName" Type="nvarchar(max)" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Shipment_Detail">
@@ -151,13 +135,6 @@
     <Property Name="Trim_Approved" Type="nvarchar" MaxLength="50" />
     <Property Name="Comments" Type="nvarchar(max)" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'DB.dbo.UserGroup' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="UserGroup">
-          <Property Name="UserGroupID" Type="int" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="int" />
-        </EntityType>-->
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserID" />
@@ -186,46 +163,12 @@ warning 6013: The table/view 'DB.dbo.UserGroup' does not have a primary key defi
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="vuGetRolePermission">
-    <Key>
-      <PropertyRef Name="ModuleID" />
-      <PropertyRef Name="PermissionID" />
-    </Key>
-    <Property Name="ModuleID" Type="int" Nullable="false" />
-    <Property Name="IsActive" Type="bit" />
-    <Property Name="Page_Name" Type="nvarchar(max)" />
-    <Property Name="default_url" Type="nvarchar(max)" />
-    <Property Name="RoleID" Type="int" />
-    <Property Name="RoleName" Type="nvarchar(max)" />
-    <Property Name="PermissionID" Type="int" Nullable="false" />
-    <Property Name="ModulePermissionID" Type="int" />
-    <Property Name="ModuleDetailID" Type="int" />
-    <Property Name="Allow_Insert" Type="bit" />
-    <Property Name="Allow_Update" Type="bit" />
-    <Property Name="Allow_Delete" Type="bit" />
-    <Property Name="Allow_View" Type="bit" />
-    <Property Name="Allow_Approval" Type="bit" />
-    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <Association Name="FK_ModuleDetail_Module">
-    <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
-    <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Module">
-        <PropertyRef Name="ModuleID" />
-      </Principal>
-      <Dependent Role="ModuleDetail">
-        <PropertyRef Name="ModuleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ModuleRolePermission_Module">
-    <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+    <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
     <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Module">
-        <PropertyRef Name="ModuleID" />
+      <Principal Role="ModuleDetail">
+        <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="ModuleRolePermission">
         <PropertyRef Name="ModuleID" />
@@ -352,11 +295,17 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="SP_RolePermission" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="varchar" Mode="In" />
+    <Parameter Name="ModuleID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USERLOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USER" Type="nvarchar" Mode="In" />
+    <Parameter Name="PASS" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="DBModelStoreContainer">
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ItemMaster" EntityType="Self.ItemMaster" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleDetail" EntityType="Self.ModuleDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuleRolePermission" EntityType="Self.ModuleRolePermission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
@@ -367,32 +316,8 @@ warning 6002: The table/view 'DB.dbo.vuGetRolePermission' does not have a primar
     <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="vuGetRolePermission" EntityType="Self.vuGetRolePermission" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vuGetRolePermission].[ModuleID] AS [ModuleID], 
-    [vuGetRolePermission].[IsActive] AS [IsActive], 
-    [vuGetRolePermission].[Page_Name] AS [Page_Name], 
-    [vuGetRolePermission].[default_url] AS [default_url], 
-    [vuGetRolePermission].[RoleID] AS [RoleID], 
-    [vuGetRolePermission].[RoleName] AS [RoleName], 
-    [vuGetRolePermission].[PermissionID] AS [PermissionID], 
-    [vuGetRolePermission].[ModulePermissionID] AS [ModulePermissionID], 
-    [vuGetRolePermission].[ModuleDetailID] AS [ModuleDetailID], 
-    [vuGetRolePermission].[Allow_Insert] AS [Allow_Insert], 
-    [vuGetRolePermission].[Allow_Update] AS [Allow_Update], 
-    [vuGetRolePermission].[Allow_Delete] AS [Allow_Delete], 
-    [vuGetRolePermission].[Allow_View] AS [Allow_View], 
-    [vuGetRolePermission].[Allow_Approval] AS [Allow_Approval], 
-    [vuGetRolePermission].[UserName] AS [UserName], 
-    [vuGetRolePermission].[Password] AS [Password]
-    FROM [dbo].[vuGetRolePermission] AS [vuGetRolePermission]</DefiningQuery>
-    </EntitySet>
-    <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
-      <End Role="Module" EntitySet="Module" />
-      <End Role="ModuleDetail" EntitySet="ModuleDetail" />
-    </AssociationSet>
     <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
-      <End Role="Module" EntitySet="Module" />
+      <End Role="ModuleDetail" EntitySet="ModuleDetail" />
       <End Role="ModuleRolePermission" EntitySet="ModuleRolePermission" />
     </AssociationSet>
     <AssociationSet Name="FK_ModuleRolePermission_Roles" Association="Self.FK_ModuleRolePermission_Roles">

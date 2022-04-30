@@ -15,14 +15,6 @@
     <Property Name="Contact_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PurchaseOrder_Client" FromRole="Client" ToRole="PurchaseOrder" />
   </EntityType>
-  <EntityType Name="Department">
-    <Key>
-      <PropertyRef Name="DepartmentID" />
-    </Key>
-    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-  </EntityType>
   <EntityType Name="ItemMaster">
     <Key>
       <PropertyRef Name="ItemCode" />
@@ -35,22 +27,12 @@
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="PO_Detail" Relationship="Self.FK_PO_Detail_ItemMaster" FromRole="ItemMaster" ToRole="PO_Detail" />
   </EntityType>
-  <EntityType Name="Module">
-    <Key>
-      <PropertyRef Name="ModuleID" />
-    </Key>
-    <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <NavigationProperty Name="ModuleDetails" Relationship="Self.FK_ModuleDetail_Module" FromRole="Module" ToRole="ModuleDetail" />
-    <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="Module" ToRole="ModuleRolePermission" />
-  </EntityType>
   <EntityType Name="ModuleDetail">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ModuleID" Type="Int32" />
+    <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -58,7 +40,7 @@
     <Property Name="ParentID" Type="Int32" />
     <Property Name="IsVisible" Type="Boolean" />
     <Property Name="IsActive" Type="Boolean" />
-    <NavigationProperty Name="Module" Relationship="Self.FK_ModuleDetail_Module" FromRole="ModuleDetail" ToRole="Module" />
+    <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleDetail" ToRole="ModuleRolePermission" />
     <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleDetail" FromRole="ModuleDetail" ToRole="Permission" />
   </EntityType>
   <EntityType Name="ModuleRolePermission">
@@ -68,7 +50,7 @@
     <Property Name="ModulePermissionID" Type="Int32" Nullable="false" />
     <Property Name="RoleID" Type="Int32" />
     <Property Name="ModuleID" Type="Int32" />
-    <NavigationProperty Name="Module" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleRolePermission" ToRole="Module" />
+    <NavigationProperty Name="ModuleDetail" Relationship="Self.FK_ModuleRolePermission_Module" FromRole="ModuleRolePermission" ToRole="ModuleDetail" />
     <NavigationProperty Name="Role" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="ModuleRolePermission" ToRole="Roles" />
     <NavigationProperty Name="Permissions" Relationship="Self.FK_Permission_ModuleRolePermission" FromRole="ModuleRolePermission" ToRole="Permission" />
   </EntityType>
@@ -146,7 +128,7 @@
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="ModuleRolePermissions" Relationship="Self.FK_ModuleRolePermission_Roles" FromRole="Roles" ToRole="ModuleRolePermission" />
     <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
@@ -201,28 +183,6 @@
     <Property Name="IsActive" Type="Int32" />
     <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserType" FromRole="UserType" ToRole="Users" />
   </EntityType>
-  <EntityType Name="vuGetRolePermission">
-    <Key>
-      <PropertyRef Name="ModuleID" />
-      <PropertyRef Name="PermissionID" />
-    </Key>
-    <Property Name="ModuleID" Type="Int32" Nullable="false" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="Page_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="default_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="RoleID" Type="Int32" />
-    <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PermissionID" Type="Int32" Nullable="false" />
-    <Property Name="ModulePermissionID" Type="Int32" />
-    <Property Name="ModuleDetailID" Type="Int32" />
-    <Property Name="Allow_Insert" Type="Boolean" />
-    <Property Name="Allow_Update" Type="Boolean" />
-    <Property Name="Allow_Delete" Type="Boolean" />
-    <Property Name="Allow_View" Type="Boolean" />
-    <Property Name="Allow_Approval" Type="Boolean" />
-    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
   <Association Name="FK_PurchaseOrder_Client">
     <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
     <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
@@ -247,24 +207,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ModuleDetail_Module">
-    <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
-    <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Module">
-        <PropertyRef Name="ModuleID" />
-      </Principal>
-      <Dependent Role="ModuleDetail">
-        <PropertyRef Name="ModuleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ModuleRolePermission_Module">
-    <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+    <End Role="ModuleDetail" Type="Self.ModuleDetail" Multiplicity="0..1" />
     <End Role="ModuleRolePermission" Type="Self.ModuleRolePermission" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Module">
-        <PropertyRef Name="ModuleID" />
+      <Principal Role="ModuleDetail">
+        <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="ModuleRolePermission">
         <PropertyRef Name="ModuleID" />
@@ -367,11 +315,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DBEntities3" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Clients" EntityType="Self.Client" />
-    <EntitySet Name="Departments" EntityType="Self.Department" />
     <EntitySet Name="ItemMasters" EntityType="Self.ItemMaster" />
-    <EntitySet Name="Modules" EntityType="Self.Module" />
     <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetail" />
     <EntitySet Name="ModuleRolePermissions" EntityType="Self.ModuleRolePermission" />
     <EntitySet Name="Permissions" EntityType="Self.Permission" />
@@ -382,7 +328,6 @@
     <EntitySet Name="Shipment_Detail" EntityType="Self.Shipment_Detail" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-    <EntitySet Name="vuGetRolePermissions" EntityType="Self.vuGetRolePermission" />
     <AssociationSet Name="FK_PurchaseOrder_Client" Association="Self.FK_PurchaseOrder_Client">
       <End Role="Client" EntitySet="Clients" />
       <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
@@ -391,12 +336,8 @@
       <End Role="ItemMaster" EntitySet="ItemMasters" />
       <End Role="PO_Detail" EntitySet="PO_Detail" />
     </AssociationSet>
-    <AssociationSet Name="FK_ModuleDetail_Module" Association="Self.FK_ModuleDetail_Module">
-      <End Role="Module" EntitySet="Modules" />
-      <End Role="ModuleDetail" EntitySet="ModuleDetails" />
-    </AssociationSet>
     <AssociationSet Name="FK_ModuleRolePermission_Module" Association="Self.FK_ModuleRolePermission_Module">
-      <End Role="Module" EntitySet="Modules" />
+      <End Role="ModuleDetail" EntitySet="ModuleDetails" />
       <End Role="ModuleRolePermission" EntitySet="ModuleRolePermissions" />
     </AssociationSet>
     <AssociationSet Name="FK_Permission_ModuleDetail" Association="Self.FK_Permission_ModuleDetail">
@@ -431,5 +372,35 @@
       <End Role="UserType" EntitySet="UserTypes" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
+    <FunctionImport Name="USERLOGIN" ReturnType="Collection(Int32)">
+      <Parameter Name="USER" Mode="In" Type="String" />
+      <Parameter Name="PASS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_RolePermission" ReturnType="Collection(DBModel.SP_RolePermission_Result)">
+      <Parameter Name="RoleID" Mode="In" Type="String" />
+      <Parameter Name="ModuleID" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="SP_RolePermission_Result">
+    <Property Type="Int32" Name="ModulePermissionID" Nullable="false" />
+    <Property Type="Int32" Name="RoleID" Nullable="true" />
+    <Property Type="Int32" Name="ModuleID" Nullable="true" />
+    <Property Type="Int32" Name="PermissionID" Nullable="false" />
+    <Property Type="Int32" Name="ModulePermissionID1" Nullable="true" />
+    <Property Type="Int32" Name="ModuleDetailID" Nullable="true" />
+    <Property Type="Boolean" Name="Allow_Insert" Nullable="true" />
+    <Property Type="Boolean" Name="Allow_Update" Nullable="true" />
+    <Property Type="Boolean" Name="Allow_Delete" Nullable="true" />
+    <Property Type="Boolean" Name="Allow_View" Nullable="true" />
+    <Property Type="Boolean" Name="Allow_Approval" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Page_Name" Nullable="true" />
+    <Property Type="String" Name="default_url" Nullable="true" />
+    <Property Type="Boolean" Name="IsParent" Nullable="true" />
+    <Property Type="Int32" Name="ParentID" Nullable="true" />
+    <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+  </ComplexType>
 </Schema>

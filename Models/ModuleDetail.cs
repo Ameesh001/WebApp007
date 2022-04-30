@@ -17,11 +17,12 @@ namespace WebApplication007.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ModuleDetail()
         {
+            this.ModuleRolePermissions = new HashSet<ModuleRolePermission>();
             this.Permissions = new HashSet<Permission>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> ModuleID { get; set; }
+        public string ModuleName { get; set; }
         public string Title { get; set; }
         public string Page_Name { get; set; }
         public string default_url { get; set; }
@@ -30,7 +31,8 @@ namespace WebApplication007.Models
         public Nullable<bool> IsVisible { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Module Module { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ModuleRolePermission> ModuleRolePermissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Permission> Permissions { get; set; }
     }

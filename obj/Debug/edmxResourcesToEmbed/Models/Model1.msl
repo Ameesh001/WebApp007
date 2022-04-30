@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities3">
     <EntitySetMapping Name="Clients">
       <EntityTypeMapping TypeName="DBModel.Client">
         <MappingFragment StoreEntitySet="Client">
@@ -16,15 +16,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Departments">
-      <EntityTypeMapping TypeName="DBModel.Department">
-        <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ItemMasters">
       <EntityTypeMapping TypeName="DBModel.ItemMaster">
         <MappingFragment StoreEntitySet="ItemMaster">
@@ -37,20 +28,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Modules">
-      <EntityTypeMapping TypeName="DBModel.Module">
-        <MappingFragment StoreEntitySet="Module">
-          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
-          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ModuleDetails">
       <EntityTypeMapping TypeName="DBModel.ModuleDetail">
         <MappingFragment StoreEntitySet="ModuleDetail">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
           <ScalarProperty Name="default_url" ColumnName="default_url" />
@@ -192,27 +174,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vuGetRolePermissions">
-      <EntityTypeMapping TypeName="DBModel.vuGetRolePermission">
-        <MappingFragment StoreEntitySet="vuGetRolePermission">
-          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
-          <ScalarProperty Name="default_url" ColumnName="default_url" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+    <FunctionImportMapping FunctionImportName="USERLOGIN" FunctionName="DBModel.Store.USERLOGIN" />
+    <FunctionImportMapping FunctionImportName="SP_RolePermission" FunctionName="DBModel.Store.SP_RolePermission">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBModel.SP_RolePermission_Result">
           <ScalarProperty Name="ModulePermissionID" ColumnName="ModulePermissionID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="ModulePermissionID1" ColumnName="ModulePermissionID1" />
           <ScalarProperty Name="ModuleDetailID" ColumnName="ModuleDetailID" />
           <ScalarProperty Name="Allow_Insert" ColumnName="Allow_Insert" />
           <ScalarProperty Name="Allow_Update" ColumnName="Allow_Update" />
           <ScalarProperty Name="Allow_Delete" ColumnName="Allow_Delete" />
           <ScalarProperty Name="Allow_View" ColumnName="Allow_View" />
           <ScalarProperty Name="Allow_Approval" ColumnName="Allow_Approval" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+          <ScalarProperty Name="default_url" ColumnName="default_url" />
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

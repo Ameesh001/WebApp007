@@ -24,7 +24,7 @@ namespace WebApplication007.Models
         public Nullable<int> RoleID { get; set; }
         public Nullable<int> ModuleID { get; set; }
     
-        public virtual Module Module { get; set; }
+        public virtual ModuleDetail ModuleDetail { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Permission> Permissions { get; set; }

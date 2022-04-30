@@ -21,13 +21,15 @@ namespace WebApplication007
         {
             try
             {
-                using (DBEntities objDB = new DBEntities())
+                using (DBEntities3 objDB = new DBEntities3())
                 {
                     if (!objDB.Roles.Any(x => x.RoleName == "Admin"))
                     {
-                        Role mRole = new Role();
-                        mRole.RoleName = "Admin";
-                        mRole.IsActive = true;
+                        Role mRole = new Role
+                        {
+                            RoleName = "Admin",
+                            IsActive = true
+                        };
                         objDB.Roles.Add(mRole);
                         objDB.SaveChanges();
                     }
